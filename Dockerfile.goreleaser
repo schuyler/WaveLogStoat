@@ -1,0 +1,13 @@
+# Slim runtime image used by GoReleaser (binary is pre-built).
+# For standalone builds, use the main Dockerfile instead.
+FROM alpine:3.19
+
+RUN apk add --no-cache ca-certificates
+
+WORKDIR /app
+COPY wavelog-stoat .
+
+EXPOSE 2333/udp
+
+ENTRYPOINT ["./wavelog-stoat"]
+CMD ["-c", "/app/config.ini"]
