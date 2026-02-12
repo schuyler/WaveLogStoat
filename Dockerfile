@@ -1,3 +1,7 @@
+# Dockerfile for wavelog-stoat
+#
+# docker build --platform linux/amd64 -t wavelog-stoat:latest
+#
 # Build stage: compile a static Go binary
 FROM golang:1.19-alpine AS builder
 
