@@ -94,6 +94,34 @@ verbose = true
 ./wavelogstoat --test
 ```
 
+### Docker
+
+```bash
+# Build the image
+docker build -t wavelog-stoat .
+
+# Run with your config file
+docker run -v /path/to/config.ini:/app/config.ini:ro \
+           -v /dev/null:/app/wavelog-stoat.log \
+           -p 2333:2333/udp wavelog-stoat
+```
+
+Or with Docker Compose:
+
+```yaml
+services:
+  wavelog-stoat:
+    build: .
+    ports:
+      - "2333:2333/udp"
+    volumes:
+      - ./config.ini:/app/config.ini:ro
+      - /dev/null:/app/wavelog-stoat.log
+    restart: unless-stopped
+```
+
+The log file is mapped to `/dev/null` since Docker captures stdout and handles log rotation. To persist the log file, replace `/dev/null` with a host path.
+
 ### Logger Setup
 
 In your logger, configure the UDP settings:
